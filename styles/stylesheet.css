@@ -2,6 +2,24 @@
   font-family: Work Sans;
   src: url(../assets/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf);
 }
+body{
+  margin: 0;
+  background-color: hsl(275, 100%, 97%);
+}
+
 .font-main{
   font-family: Work Sans;
+}
+
+.accordion-header{
+  cursor: pointer;
+  user-select: none;
+}
+
+.accordion-header + .accordion-body{
+  display: none;
+}
+
+.accordion-header.is-open + .accordion-body{
+  display: block;
 }
