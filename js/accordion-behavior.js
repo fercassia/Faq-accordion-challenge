@@ -1,3 +1,5 @@
+import { svgType } from '../utils/svg-type.js';
+
 const classAccordionHeader = 'accordion-header'
 const classIsOpen = 'is-open';
 const classAccordionSVG = 'accordion-svg';
@@ -10,13 +12,29 @@ const fillSvgMinus = '#301534';
 
 const accordion = document.querySelectorAll(`.${classAccordionHeader}`);
 
+
+const changeSvg = (element, typeSvg) => {
+
+  const svgElement = element.getElementsByClassName(classAccordionSVG)[0];
+
+  if(typeSvg === svgType.svgMinus) {
+    svgElement.setAttribute('d', dSvgMinus);
+    svgElement.setAttribute('fill', fillSvgMinus);
+  }
+  if (typeSvg === svgType.svgPlus) {
+    svgElement.setAttribute('d', dSvgPlus);
+    svgElement.setAttribute('fill', fillSvgPlus);
+  }
+}
+
 accordion.forEach(accordionHeader => {
   accordionHeader.addEventListener('click', () =>{
 
-    if(accordionHeader.classList.contains(classIsOpen)) {
+    const isOpen = accordionHeader.classList.contains(classIsOpen);
 
+    if(isOpen) {
       accordionHeader.classList.remove(classIsOpen);
-      changeSvg(accordionHeader);
+      changeSvg(accordionHeader, svgType.svgPlus);
     }
     else {
 
@@ -24,23 +42,11 @@ accordion.forEach(accordionHeader => {
 
       accordionItemWithIsOpen.forEach(accordionItemWithIsOpen =>{
         accordionItemWithIsOpen.classList.remove(classIsOpen);
+        changeSvg(accordionItemWithIsOpen, svgType.svgPlus);
       });
 
       accordionHeader.classList.add(classIsOpen);
-      changeSvg(accordionHeader);
+      changeSvg(accordionHeader, svgType.svgMinus);
     }
   });
 });
-
-changeSvg = element => {
-
-  if(element.classList.contains(classIsOpen)) {
-
-    element.getElementsByClassName(classAccordionSVG)[0].setAttribute('d', dSvgMinus);
-    element.getElementsByClassName(classAccordionSVG)[0].setAttribute('fill', fillSvgMinus);
-  }
-  else {
-    element.getElementsByClassName(classAccordionSVG)[0].setAttribute('d', dSvgPlus);
-    element.getElementsByClassName(classAccordionSVG)[0].setAttribute('fill', fillSvgPlus);
-  }
-}
